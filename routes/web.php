@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::view('dashboard', 'dashboard')
 	->name('dashboard')
 	->middleware(['auth', 'verified']);
+
+Route::view('dashboard', 'dashboard')
+	->name('dashboard')
+	->middleware(['auth', 'verified']);
