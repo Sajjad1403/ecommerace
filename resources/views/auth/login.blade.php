@@ -18,37 +18,6 @@
         </div>
     @endif
 
-    {{-- <form method="POST" action="{{ route('login') }}">
-        @csrf
-
-        <div>
-            <label>{{ __('Email') }}</label>
-            <input type="email" name="email" value="{{ old('email') }}" required autofocus />
-        </div>
-
-        <div>
-            <label>{{ __('Password') }}</label>
-            <input type="password" name="password" required autocomplete="current-password" />
-        </div>
-
-        <div>
-            <label>{{ __('Remember me') }}</label>
-            <input type="checkbox" name="remember">
-        </div>
-
-        @if (Route::has('password.request'))
-            <a href="{{ route('password.request') }}">
-                {{ __('Forgot your password?') }}
-            </a>
-        @endif
-
-        <div>
-            <button type="submit">
-                {{ __('Login') }}
-            </button>
-        </div>
-    </form> --}}
-
     <div class="auth-page">
         <div class="container-fluid p-0">
             <div class="row g-0">

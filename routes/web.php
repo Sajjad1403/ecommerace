@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layout.admin.index');
+	return view('layout.backend.app');
 });
 
 Route::view('dashboard', 'dashboard')
@@ -24,3 +24,42 @@ Route::view('dashboard', 'dashboard')
 Route::view('dashboard', 'dashboard')
 	->name('dashboard')
 	->middleware(['auth', 'verified']);
+
+Route::get('profile', function () {
+	return view('profile');
+});
+
+
+Route::group(['prefix' => 'artisan', 'as' => 'artisan.'], function () {
+
+	Route::get('clear', function () {
+		Artisan::call('config:clear');
+		Artisan::call('view:clear');
+		Artisan::call('route:clear');
+		Artisan::call('cache:clear');
+		return 'Successfully Cleared!';
+	});
+
+	Route::get('migrate', function () {
+		Artisan::call('migrate:fresh --seed');
+		Artisan::call('storage:link');
+		return 'Successfully Migrated fresh, seeded and storage is linked!';
+	});
+
+	Route::get('storage_link', function () {
+		Artisan::call('storage:link');
+		return 'Successfully linked!';
+	});
+});
+
+
+Route::group(['middleware' => ['auth', 'verified'], function () {
+	Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
+	});
+}]);
+
+
+
+
+
+// Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
