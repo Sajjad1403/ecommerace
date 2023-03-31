@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-	return view('layout.backend.app');
-});
+
 
 Route::view('dashboard', 'dashboard')
 	->name('dashboard')
@@ -25,9 +24,7 @@ Route::view('dashboard', 'dashboard')
 	->name('dashboard')
 	->middleware(['auth', 'verified']);
 
-Route::get('profile', function () {
-	return view('profile');
-});
+
 
 
 Route::group(['prefix' => 'artisan', 'as' => 'artisan.'], function () {
@@ -53,10 +50,20 @@ Route::group(['prefix' => 'artisan', 'as' => 'artisan.'], function () {
 });
 
 
-Route::group(['middleware' => ['auth', 'verified'], function () {
+Route::group(['middleware' => ['auth', 'verified']], function () {
 	Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
 	});
-}]);
+
+
+	Route::get('/', function () {
+		return view('layout.backend.app');
+	});
+	
+	Route::get('profile', function () {
+		return view('profile');
+	});
+});
+
 
 
 
