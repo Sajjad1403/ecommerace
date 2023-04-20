@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserDetailsFieldsToUsersTable extends Migration
+class CreateUserOtherFieldsToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,9 @@ class CreateUserDetailsFieldsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('first_name')->nullable()->after('role');
-            $table->string('last_name')->nullable()->after('first_name');
-            $table->string('phone')->nullable()->after('last_name');
+            $table->string('address')->nullable()->after('phone');
+            $table->boolean('status')->default(0);
+            $table->integer('created_by')->nullable()->after('status');
         });
     }
 

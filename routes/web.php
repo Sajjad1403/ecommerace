@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ApiKeyController;
+use App\Http\Controllers\Admin\PermissionController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -51,9 +56,17 @@ Route::group(['prefix' => 'artisan', 'as' => 'artisan.'], function () {
 
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
+	
 	Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
+		
+		Route::resources([
+			'permissions' => PermissionController::class,
+			'roles' => RoleController::class,
+			'apiKeys' => ApiKeyController::class,
+			'users' => UserController::class
+		]);
+		
 	});
-
 
 	Route::get('/', function () {
 		return view('layout.backend.app');

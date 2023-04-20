@@ -3,10 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Models\ApiKey;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class AdminMiddleware
+class VerifyApiKey
 {
     /**
      * Handle an incoming request.
@@ -17,9 +17,16 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->roles()->first()->name == 'admin'){
-            return $next($request);
+        $key = $request->header('api-key');
+        
+        if($key) {
+            $apikey = ApiKey::where('key', $key)->first();
+            
+            if ($apikey) {
+                return $next($request);
+            }
         }
-       abort(404);
+        
+        return response()->json('Unauthenticated api key!', 401);
     }
 }
